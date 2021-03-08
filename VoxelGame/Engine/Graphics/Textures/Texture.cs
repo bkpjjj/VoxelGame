@@ -7,16 +7,19 @@ namespace VoxelGame.Engine.Graphics.Textures
 {
     abstract class Texture
     {
-        public int Id { get; protected set; }
-        public string Name { get; protected set; }
-        public TextureTarget Target { get; protected set; }
-        public Texture(string name)
+        public int Id { get; private set; }
+        public TextureTarget Target { get; private set; }
+        public Texture(TextureTarget target)
         {
-            Name = name;
+            Target = target;
             Id = GL.GenTexture();
         }
-
         public void Bind() => GL.BindTexture(Target, Id);
         public void Unbind() => GL.BindTexture(Target, 0);
+        public void Use(TextureUnit unit)
+        {
+            GL.ActiveTexture(unit);
+            Bind();
+        }
     }
 }

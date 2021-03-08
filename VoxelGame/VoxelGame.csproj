@@ -12,8 +12,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\" />
-    <Folder Include="Content\" />
+    <None Update="Content\Shaders\Standart.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Shaders\Standart.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Textures\grass.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Textures\tenor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\Textures\" />
   </ItemGroup>
 
 </Project>

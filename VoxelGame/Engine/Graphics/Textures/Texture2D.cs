@@ -2,43 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VoxelGame.Engine.Resources;
 
 namespace VoxelGame.Engine.Graphics.Textures
 {
     class Texture2D : Texture
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public Texture2D(string name) : base(name)
+        public PixelInternalFormat InternalFormat { get; private set; }
+        public PixelFormat PixelFormat { get; private set; }
+        public Texture2D(PixelInternalFormat internalFormat, PixelFormat pixelFormat) : base(TextureTarget.Texture2D)
         {
-            Target = TextureTarget.Texture2D;
-            Assets.TextureManager.Add(name, this);
+            InternalFormat = internalFormat;
+            PixelFormat = pixelFormat;
         }
 
-        ~Texture2D()
+        public void Load<T>(int width,int height,T[] data) where T : struct
         {
-            Assets.TextureManager.Unload(Name);
-            GL.DeleteTexture(Id);
-        }
-
-        public void CreateEmpty(int width, int height)
-        {
-            Create(width, height, IntPtr.Zero);
-        }
-
-        public void Create(int width, int height, IntPtr data)
-        {
-            Width = width;
-            Height = height;
             Bind();
-            GL.TexImage2D(Target, 0, PixelInternalFormat.Rgba, Width, Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, data);
+            GL.TexImage2D(Target, 0, InternalFormat, width, height, 0, PixelFormat, PixelType.UnsignedByte, data);
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
             Unbind();
         }
 
-        public void Resize(int width, int height)
+        public void Load(int width, int height,IntPtr data)
         {
-            CreateEmpty(width, height);
+            Bind();
+            GL.TexImage2D(Target, 0, InternalFormat, width, height, 0, PixelFormat, PixelType.UnsignedByte, data);
+            Unbind();
         }
+
+        public void CreateEmpty(int width,int height)
+        {
+            Load(width, height, IntPtr.Zero);
+        }
+
+        public void Resize(int width, int height) => CreateEmpty(width, height);
     }
 }

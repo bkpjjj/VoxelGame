@@ -1,32 +1,16 @@
-﻿using OpenTK.Graphics.OpenGL;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using OpenTK.Graphics.OpenGL;
 using System.Text;
 
 namespace VoxelGame.Engine.Graphics.Buffers
 {
-    sealed class VertexBuffer
+    class VertexBuffer : Buffer
     {
-        public int Id { get; private set; }
         public int ComponentSize { get; private set; }
-
-        public VertexBuffer()
+        public VertexBuffer(int componentSize,BufferUsageHint hint = BufferUsageHint.StaticDraw) : base(BufferTarget.ArrayBuffer, hint)
         {
-            Id = GL.GenBuffer();
-        }
-
-        ~VertexBuffer()
-        {
-            GL.DeleteBuffer(Id);
-        }
-
-        public void Bind() => GL.BindBuffer(BufferTarget.ArrayBuffer, Id);
-        public void Unbind() => GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-        public void SetData(float[] buffer)
-        {
-            Bind();
-            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * buffer.Length, buffer, BufferUsageHint.DynamicDraw);
-            Unbind();
+            ComponentSize = componentSize;
         }
     }
 }
