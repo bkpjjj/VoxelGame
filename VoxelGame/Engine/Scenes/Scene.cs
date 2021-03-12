@@ -7,32 +7,40 @@ namespace VoxelGame.Engine.Scenes
     {
         protected EcsWorld EcsWorld { get; set; }
         private EcsSystems ecsupdateSystems;
-        private EcsSystems ecsdrawSystems;
+        private EcsSystems renderPipeline;
 
         protected Scene()
         {
             EcsWorld = new EcsWorld();
             ecsupdateSystems = new EcsSystems(EcsWorld);
-            ecsdrawSystems = new EcsSystems(EcsWorld);
+            renderPipeline = new EcsSystems(EcsWorld);
         }
 
         public static AssetPool Content { get; private set; } = new AssetPool();
         public abstract void OnLoadContent();
         public abstract void OnConfigureUpdate(EcsSystems systems);
-        public abstract void OnConfigureDraw(EcsSystems systems);
+        public abstract void ConfigureRenderPipeline(EcsSystems pipeline);
         public abstract void BuildEntitis();
         public void Load()
         {
             OnLoadContent();
             OnConfigureUpdate(ecsupdateSystems);
-            OnConfigureDraw(ecsupdateSystems);
+            ConfigureRenderPipeline(ecsupdateSystems);
+            ProcessInjects();
             BuildEntitis();
             InitSystems();
         }
+
+        private void ProcessInjects()
+        {
+            ecsupdateSystems.ProcessInjects();
+            renderPipeline.ProcessInjects();
+        }
+
         public void InitSystems()
         {
             ecsupdateSystems.Init();
-            ecsdrawSystems.Init();
+            renderPipeline.Init();
         }
         public void UpdateSystems()
         {
@@ -40,7 +48,12 @@ namespace VoxelGame.Engine.Scenes
         }
         public void DrawSystems()
         {
-            ecsdrawSystems.Run();
+            renderPipeline.Run();
+        }
+        public void Destroy()
+        {
+            ecsupdateSystems.Destroy();
+            renderPipeline.Destroy();
         }
     }
 }

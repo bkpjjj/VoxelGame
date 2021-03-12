@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using VoxelGame.Engine;
@@ -13,7 +14,7 @@ namespace VoxelGame
     {
         public Application(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
         {
-            VSync = VSyncMode.On;
+            VSync = VSyncMode.Off;
             Input.KeyboardState = KeyboardState;
             Input.Mouse = MouseState;
             CursorGrabbed = true;
@@ -22,10 +23,12 @@ namespace VoxelGame
         protected override void OnLoad()
         {
             SceneManager.Load(new TestScene());
+            GL.ClearColor(new Color4(0.05f, 0.05f, 0.1f, 1.0f));
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
+            GL.Clear(ClearBufferMask.ColorBufferBit);
             Time.DeltaTime = (float)args.Time;
             SceneManager.Current.DrawSystems();
 
