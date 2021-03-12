@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VoxelGame.Engine.Graphics
+﻿namespace VoxelGame.Engine.Graphics
 {
     static class Screen
     {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Debug;
-
-namespace VoxelGame.Engine.Resources
+﻿namespace VoxelGame.Engine.Resources
 {
     class AssetPool
     {

@@ -1,9 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using VoxelGame.Engine.Graphics.Buffers;
 
 namespace VoxelGame.Engine.Graphics.Geometry

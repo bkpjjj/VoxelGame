@@ -1,46 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.ECS;
-using VoxelGame.Engine.ECS.Systems;
+﻿using Leopotam.Ecs;
 using VoxelGame.Engine.Resources;
 
 namespace VoxelGame.Engine.Scenes
 {
     abstract class Scene
     {
+        protected EcsWorld EcsWorld { get; set; }
+        private EcsSystems ecsupdateSystems;
+        private EcsSystems ecsdrawSystems;
+
+        protected Scene()
+        {
+            EcsWorld = new EcsWorld();
+            ecsupdateSystems = new EcsSystems(EcsWorld);
+            ecsdrawSystems = new EcsSystems(EcsWorld);
+        }
+
         public static AssetPool Content { get; private set; } = new AssetPool();
-        public Context Context { get; private set; } = new Context();
         public abstract void OnLoadContent();
-        public abstract void OnConfigure();
+        public abstract void OnConfigureUpdate(EcsSystems systems);
+        public abstract void OnConfigureDraw(EcsSystems systems);
         public abstract void BuildEntitis();
         public void Load()
         {
             OnLoadContent();
-            OnConfigure();
+            OnConfigureUpdate(ecsupdateSystems);
+            OnConfigureDraw(ecsupdateSystems);
             BuildEntitis();
             InitSystems();
         }
         public void InitSystems()
         {
-            foreach (ECSSystem system in Context.GetSystems())
-            {
-                system.Init();
-            }
+            ecsupdateSystems.Init();
+            ecsdrawSystems.Init();
         }
-        public void UpdateSystems(float dt)
+        public void UpdateSystems()
         {
-            foreach (ECSSystem system in Context.GetSystems())
-            {
-                system.Update(dt);
-            }
+            ecsupdateSystems.Run();
         }
-        public void DrawSystems(float dt)
+        public void DrawSystems()
         {
-            foreach (ECSSystem system in Context.GetSystems())
-            {
-                system.Draw(dt);
-            }
+            ecsdrawSystems.Run();
         }
     }
 }

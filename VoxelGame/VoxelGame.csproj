@@ -28,6 +28,9 @@
 
   <ItemGroup>
     <Folder Include="Content\Textures\" />
+    <Folder Include="Engine\ECS\" />
+    <Folder Include="Game\Components\" />
+    <Folder Include="Game\Systems\" />
   </ItemGroup>
 
 </Project>

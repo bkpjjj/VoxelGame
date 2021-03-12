@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VoxelGame.Engine.Scenes
+﻿namespace VoxelGame.Engine.Scenes
 {
     class SceneManager
     {

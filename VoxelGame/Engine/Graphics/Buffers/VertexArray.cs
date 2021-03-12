@@ -1,8 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Debug;
 
 namespace VoxelGame.Engine.Graphics.Buffers
 {

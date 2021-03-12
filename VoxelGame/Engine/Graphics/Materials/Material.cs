@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Graphics.Shaders;
+﻿using VoxelGame.Engine.Graphics.Shaders;
 
 namespace VoxelGame.Engine.Graphics.Materials
 {
@@ -13,7 +10,7 @@ namespace VoxelGame.Engine.Graphics.Materials
 
         protected Material()
         {
-            
+
         }
     }
 }

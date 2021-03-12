@@ -1,7 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VoxelGame.Engine.Graphics.Textures
 {
@@ -15,7 +13,7 @@ namespace VoxelGame.Engine.Graphics.Textures
             PixelFormat = pixelFormat;
         }
 
-        public void Load<T>(int width,int height,T[] data) where T : struct
+        public void Load<T>(int width, int height, T[] data) where T : struct
         {
             Bind();
             GL.TexImage2D(Target, 0, InternalFormat, width, height, 0, PixelFormat, PixelType.UnsignedByte, data);
@@ -23,14 +21,14 @@ namespace VoxelGame.Engine.Graphics.Textures
             Unbind();
         }
 
-        public void Load(int width, int height,IntPtr data)
+        public void Load(int width, int height, IntPtr data)
         {
             Bind();
             GL.TexImage2D(Target, 0, InternalFormat, width, height, 0, PixelFormat, PixelType.UnsignedByte, data);
             Unbind();
         }
 
-        public void CreateEmpty(int width,int height)
+        public void CreateEmpty(int width, int height)
         {
             Load(width, height, IntPtr.Zero);
         }

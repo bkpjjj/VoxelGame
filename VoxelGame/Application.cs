@@ -1,16 +1,8 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using VoxelGame.Engine.Debug;
+using VoxelGame.Engine;
 using VoxelGame.Engine.Graphics;
-using VoxelGame.Engine.Graphics.Geometry;
 using VoxelGame.Engine.Inputs;
 using VoxelGame.Engine.Scenes;
 using VoxelGame.Game.Scenes;
@@ -34,7 +26,8 @@ namespace VoxelGame
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            SceneManager.Current.DrawSystems((float)args.Time);
+            Time.DeltaTime = (float)args.Time;
+            SceneManager.Current.DrawSystems();
 
             SwapBuffers();
         }
@@ -48,7 +41,8 @@ namespace VoxelGame
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
-            SceneManager.Current.UpdateSystems((float)args.Time);
+            Time.DrawDeltaTime = (float)args.Time;
+            SceneManager.Current.UpdateSystems();
             Title = "Title Fps:" + (1f / args.Time).ToString("0000") + " Update:" + args.Time.ToString("0.0000 ms");
         }
     }

@@ -1,9 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Debug;
+using VoxelGame.Engine.Debugging;
 using VoxelGame.Engine.Graphics.Textures;
 
 namespace VoxelGame.Engine.Graphics.Shaders
@@ -38,7 +35,7 @@ namespace VoxelGame.Engine.Graphics.Shaders
             GL.CompileShader(id);
             string info = GL.GetShaderInfoLog(id);
             if (!string.IsNullOrEmpty(info))
-                Log.Warn(info, this);
+                Debug.Warn(info, this);
             GL.AttachShader(ID, id);
         }
 

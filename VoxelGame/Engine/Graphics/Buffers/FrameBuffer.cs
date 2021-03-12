@@ -1,8 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Debug;
+using VoxelGame.Engine.Debugging;
 using VoxelGame.Engine.Graphics.Textures;
 
 namespace VoxelGame.Engine.Graphics.Buffers
@@ -29,11 +27,11 @@ namespace VoxelGame.Engine.Graphics.Buffers
             GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth24Stencil8, width, height);
             GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
             GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, rb);
-            
+
             var status = GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer);
             if (status != FramebufferErrorCode.FramebufferComplete)
             {
-                Log.Warn(status.ToString(), this);
+                Debug.Warn(status.ToString(), this);
             }
 
             Unbind();

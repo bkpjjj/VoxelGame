@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VoxelGame.Engine.Debug;
+﻿using System.Collections.Generic;
+using VoxelGame.Engine.Debugging;
 
 namespace VoxelGame.Engine.Resources
 {
@@ -18,7 +16,7 @@ namespace VoxelGame.Engine.Resources
 
         public virtual void Load(string name)
         {
-            Log.Info($"Resource Loaded: {name}", this);
+            Debug.Info($"Resource Loaded: {name}", this);
         }
 
         public T Find(string name) => Resources[name];

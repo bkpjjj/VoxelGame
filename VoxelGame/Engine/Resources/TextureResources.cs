@@ -3,9 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using VoxelGame.Engine.Graphics.Textures;
 
 namespace VoxelGame.Engine.Resources
