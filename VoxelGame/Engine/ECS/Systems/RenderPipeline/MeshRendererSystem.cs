@@ -14,8 +14,8 @@ namespace VoxelGame.Engine.ECS.Systems.RenderPipeline
 {
     class MeshRendererSystem : IEcsRunSystem, IEcsInitSystem
     {
-        EcsWorld _world = null;
         EcsFilter<MeshRenderer,Transform> _filter = null;
+        EcsFilter<Camera> _cameras = null;
 
         public void Init()
         {
@@ -28,18 +28,27 @@ namespace VoxelGame.Engine.ECS.Systems.RenderPipeline
 
         public void Run()
         {
-            foreach (int i in _filter)
+            foreach (var c in _cameras)
             {
-                ref MeshRenderer renderer = ref _filter.Get1(i);
-                ref Transform transform = ref _filter.Get2(i);
+                ref Camera cam = ref _cameras.Get1(c);
 
-                renderer.Material.Shader.Use();
+                foreach (int i in _filter)
+                {
+                    ref MeshRenderer renderer = ref _filter.Get1(i);
+                    ref Transform transform = ref _filter.Get2(i);
 
-                renderer.Mesh.VertexArray.Bind();
-                GL.DrawElements(PrimitiveType.Triangles, renderer.Mesh.Indices.Count, DrawElementsType.UnsignedInt, 0);
-                renderer.Mesh.VertexArray.Unbind();
+                    renderer.Material.Shader.Use();
+                    renderer.Material.Shader.SetMat4("MODEL", ref transform.Model);
+                    renderer.Material.Shader.SetMat4("PROJ", ref cam.Projection);
+                    renderer.Material.Shader.SetMat4("VIEW", ref cam.View);
+                    renderer.Material.LoadParams();
 
-                renderer.Material.Shader.Reset();
+                    renderer.Mesh.VertexArray.Bind();
+                    GL.DrawElements(PrimitiveType.Triangles, renderer.Mesh.Indices.Count, DrawElementsType.UnsignedInt, 0);
+                    renderer.Mesh.VertexArray.Unbind();
+
+                    renderer.Material.Shader.Reset();
+                } 
             }
         }
     }

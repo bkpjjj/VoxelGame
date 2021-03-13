@@ -14,7 +14,7 @@ namespace VoxelGame
     {
         public Application(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
         {
-            VSync = VSyncMode.Off;
+            VSync = VSyncMode.On;
             Input.KeyboardState = KeyboardState;
             Input.Mouse = MouseState;
             CursorGrabbed = true;
@@ -31,7 +31,6 @@ namespace VoxelGame
             GL.Clear(ClearBufferMask.ColorBufferBit);
             Time.DeltaTime = (float)args.Time;
             SceneManager.Current.DrawSystems();
-
             SwapBuffers();
         }
 

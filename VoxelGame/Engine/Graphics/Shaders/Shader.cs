@@ -67,19 +67,19 @@ namespace VoxelGame.Engine.Graphics.Shaders
             GL.Uniform4(loc, v);
         }
 
-        public void SetMat2(string p, Matrix2 v)
+        public void SetMat2(string p,ref Matrix2 v)
         {
             var loc = GL.GetUniformLocation(ID, p);
             GL.UniformMatrix2(loc, false, ref v);
         }
 
-        public void SetMat3(string p, Matrix3 v)
+        public void SetMat3(string p,ref Matrix3 v)
         {
             var loc = GL.GetUniformLocation(ID, p);
             GL.UniformMatrix3(loc, false, ref v);
         }
 
-        public void SetMat4(string p, Matrix4 v)
+        public void SetMat4(string p,ref Matrix4 v)
         {
             var loc = GL.GetUniformLocation(ID, p);
             GL.UniformMatrix4(loc, false, ref v);
