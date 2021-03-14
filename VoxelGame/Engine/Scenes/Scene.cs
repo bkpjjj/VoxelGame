@@ -25,7 +25,7 @@ namespace VoxelGame.Engine.Scenes
         {
             OnLoadContent();
             OnConfigureUpdate(ecsupdateSystems);
-            ConfigureRenderPipeline(ecsupdateSystems);
+            ConfigureRenderPipeline(renderPipeline);
             ProcessInjects();
             BuildEntitis();
             InitSystems();

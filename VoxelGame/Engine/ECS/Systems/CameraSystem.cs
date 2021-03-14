@@ -15,6 +15,10 @@ namespace VoxelGame.Engine.ECS.Systems
         {
              cam.Projection = Matrix4.CreatePerspectiveFieldOfView(cam.FOV, (float)Screen.Width / Screen.Height, cam.Near, cam.Far);
         }
+        private void BuildOthroMatrix(ref Camera cam)
+        {
+            cam.Othro = Matrix4.CreateOrthographicOffCenter(0f, 1f, 0f, 1f, -5f, 5f);
+        }
         private void BuildViewMatrix(ref Camera cam,ref Transform transform)
         {
             Matrix4 x = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-transform.Rotation.Y));
@@ -31,6 +35,7 @@ namespace VoxelGame.Engine.ECS.Systems
                 ref Transform t = ref _filter.Get2(i);
                 BuildProjMatrix(ref cam);
                 BuildViewMatrix(ref cam, ref t);
+                BuildOthroMatrix(ref cam);
             }
         }
     }

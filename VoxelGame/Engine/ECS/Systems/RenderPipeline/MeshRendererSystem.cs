@@ -28,6 +28,7 @@ namespace VoxelGame.Engine.ECS.Systems.RenderPipeline
 
         public void Run()
         {
+            GL.Enable(EnableCap.DepthTest);
             foreach (var c in _cameras)
             {
                 ref Camera cam = ref _cameras.Get1(c);
@@ -50,6 +51,7 @@ namespace VoxelGame.Engine.ECS.Systems.RenderPipeline
                     renderer.Material.Shader.Reset();
                 } 
             }
+            GL.Disable(EnableCap.DepthTest);
         }
     }
 }

@@ -4,6 +4,7 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using VoxelGame.Engine;
 using VoxelGame.Engine.Graphics;
+using VoxelGame.Engine.Graphics.Geometry;
 using VoxelGame.Engine.Inputs;
 using VoxelGame.Engine.Scenes;
 using VoxelGame.Game.Scenes;
@@ -26,9 +27,11 @@ namespace VoxelGame
             GL.ClearColor(new Color4(0.05f, 0.05f, 0.1f, 1.0f));
         }
 
+
+
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Time.DeltaTime = (float)args.Time;
             SceneManager.Current.DrawSystems();
             SwapBuffers();
@@ -45,7 +48,6 @@ namespace VoxelGame
         {
             Time.DrawDeltaTime = (float)args.Time;
             SceneManager.Current.UpdateSystems();
-            Title = "Title Fps:" + (1f / args.Time).ToString("0000") + " Update:" + args.Time.ToString("0.0000 ms");
         }
     }
 }

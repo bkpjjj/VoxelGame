@@ -13,7 +13,6 @@ namespace VoxelGame.Engine.Graphics.Buffers
         {
             Hint = hint;
             VertexBuffers = new List<VertexBuffer>();
-            ElementBuffer = new ElementBuffer(Hint);
             Id = GL.GenVertexArray();
         }
         ~VertexArray()
@@ -23,6 +22,10 @@ namespace VoxelGame.Engine.Graphics.Buffers
         public void AddVertexBuffer(int componentSize)
         {
             VertexBuffers.Add(new VertexBuffer(componentSize, Hint));
+        }
+        public void AddElementBuffer()
+        {
+            ElementBuffer = new ElementBuffer(Hint);
         }
         public void Init()
         {
@@ -37,7 +40,7 @@ namespace VoxelGame.Engine.Graphics.Buffers
                 buffer.Unbind();
             }
 
-            ElementBuffer.Bind();
+            ElementBuffer?.Bind();
 
             Unbind();
         }

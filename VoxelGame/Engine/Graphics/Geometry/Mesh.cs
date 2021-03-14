@@ -17,6 +17,7 @@ namespace VoxelGame.Engine.Graphics.Geometry
         public Mesh(BufferUsageHint hint)
         {
             VertexArray = new VertexArray(hint);
+            VertexArray.AddElementBuffer();
             VertexArray.AddVertexBuffer(3);
             VertexArray.AddVertexBuffer(3);
             VertexArray.AddVertexBuffer(4);

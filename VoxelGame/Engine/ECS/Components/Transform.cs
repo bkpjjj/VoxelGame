@@ -9,7 +9,17 @@ namespace VoxelGame.Engine.ECS.Components
     struct Transform
     {
         public Vector3 Position;
-        public Vector3 Rotation;
+        private Vector3 rotation;
+        public Vector3 Rotation
+        {
+            get => rotation;
+            set
+            {
+                rotation.X = value.X % 360.0f;
+                rotation.Y = value.Y % 360.0f;
+                rotation.Z = value.Z % 360.0f;
+            }
+        }
         public Vector3 Scale;
 
         public EcsEntity Parent;

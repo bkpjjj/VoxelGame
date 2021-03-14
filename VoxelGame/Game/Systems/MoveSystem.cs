@@ -19,27 +19,34 @@ namespace VoxelGame.Game.Systems
         {
             return Vector3.TransformPosition(pos, t.RotationMatrix);
         }
+
+        float speedMul = 1;
+
         public void Run()
         {
+            speedMul = 1;
+
             foreach (int i in _filter)
             {
                 ref Transform t = ref _filter.Get1(i);
 
+                if (Input.KeyboardState.IsKeyDown(Keys.LeftShift))
+                    speedMul *= 5;
                 if (Input.KeyboardState.IsKeyDown(Keys.A))
                 {
-                    t.Position -= TranslateTowards(t, Vector3.UnitX * Time.DeltaTime);
+                    t.Position -= TranslateTowards(t, Vector3.UnitX * speedMul * Time.DeltaTime);
                 }
                 if (Input.KeyboardState.IsKeyDown(Keys.D))
                 {
-                    t.Position += TranslateTowards(t, Vector3.UnitX * Time.DeltaTime);
+                    t.Position += TranslateTowards(t, Vector3.UnitX * speedMul * Time.DeltaTime);
                 }
                 if (Input.KeyboardState.IsKeyDown(Keys.W))
                 {
-                    t.Position -= TranslateTowards(t, Vector3.UnitZ * Time.DeltaTime);
+                    t.Position -= TranslateTowards(t, Vector3.UnitZ * speedMul * Time.DeltaTime);
                 }
                 if (Input.KeyboardState.IsKeyDown(Keys.S))
                 {
-                    t.Position += TranslateTowards(t, Vector3.UnitZ * Time.DeltaTime);
+                    t.Position += TranslateTowards(t, Vector3.UnitZ * speedMul * Time.DeltaTime);
                 }
             }
         }

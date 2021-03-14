@@ -13,5 +13,4 @@ out vec4 glFragColor;
 void main()
 {
 	glFragColor = texture(Main, o.Uv);
-	glFragColor = vec4(1);
 }
