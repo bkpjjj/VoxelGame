@@ -18,55 +18,66 @@ namespace VoxelGame.Game.Scenes
 {
     class TestScene : Scene
     {
+        Random rand = new Random();
         public override void BuildEntitis()
         {
             var cam_en = EcsWorld.NewEntity();
             cam_en.Get<Movable>();
             cam_en.Get<CameraView>();
-            cam_en.Get<Transform>();
+            cam_en.Get<Transform>().Position = new Vector3(0,1,0);
+            ref BoxCollider cam_collider = ref cam_en.Get<BoxCollider>();
+            cam_collider.Shape = new Box3(Vector3.Zero, Vector3.One);
             ref Camera cam = ref cam_en.Get<Camera>();
             cam.FOV = MathHelper.DegreesToRadians(60);
             cam.Near = 0.03f;
             cam.Far = 1000f;
 
-            var en = EcsWorld.NewEntity();
-            ref Transform t = ref en.Get<Transform>();
-            t.Position = new Vector3(0f,1f,-1f);
-            t.Scale = Vector3.One;
-            ref MeshRenderer r = ref en.Get<MeshRenderer>();
-            r.Material = new StandartMaterial() { Main = Scene.Content.Textures.Find<Texture2D>("tenor") };
-            r.Mesh = new Mesh(OpenTK.Graphics.OpenGL.BufferUsageHint.StaticDraw);
-            r.Mesh.Positions.AddRange(new[]
+            for (int i = 0; i < 1; i++)
             {
+                var en = EcsWorld.NewEntity();
+                ref BoxCollider pl_collider = ref en.Get<BoxCollider>();
+                pl_collider.Shape = new Box3(Vector3.Zero, Vector3.One);
+                ref Transform t = ref en.Get<Transform>();
+                t.Position = new Vector3(rand.Next(-50,50), 1f, rand.Next(-50, 50));
+                t.Scale = Vector3.One;
+                ref MeshRenderer r = ref en.Get<MeshRenderer>();
+                r.Material = new StandartMaterial() { Main = Scene.Content.Textures.Find<Texture2D>("tenor") };
+                r.Mesh = new Mesh(OpenTK.Graphics.OpenGL.BufferUsageHint.StaticDraw);
+                r.Mesh.Positions.AddRange(new[]
+                {
                 new Vector3(-1,-1,0),
                 new Vector3(1,-1,0),
                 new Vector3(1,1,0),
                 new Vector3(-1,1,0),
             });
-            r.Mesh.Normals.AddRange(new[]
-            {
+                r.Mesh.Normals.AddRange(new[]
+                {
                 new Vector3(0,0,1),
                 new Vector3(0,0,1),
                 new Vector3(0,0,1),
                 new Vector3(0,0,1),
             });
 
-            r.Mesh.UVs.AddRange(new[]
-            {
+                r.Mesh.UVs.AddRange(new[]
+                {
                 new Vector2(0,0),
                 new Vector2(1,0),
                 new Vector2(1,1),
                 new Vector2(0,1),
             });
 
-            r.Mesh.Indices.AddRange(new uint[]
-            {
+                r.Mesh.Indices.AddRange(new uint[]
+                {
                 0,1,2,
                 2,3,0
-            });
+                }); 
+            }
 
             //Floor
             var floor_en = EcsWorld.NewEntity();
+            ref BoxCollider floor_c = ref floor_en.Get<BoxCollider>();
+            floor_c.isStatic = true;
+            floor_c.Shape = new Box3(Vector3.Zero, new Vector3(100f,0.01f,100f));
             ref Transform floor_t = ref floor_en.Get<Transform>();
             floor_t.Position = new Vector3(0f, 0f, 0f);
             floor_t.Scale = Vector3.One * 100f;
@@ -126,6 +137,7 @@ namespace VoxelGame.Game.Scenes
         {
             systems.Add(new TransformSystem());
             systems.Add(new Transform2DSystem());
+            systems.Add(new PhysicsSystem());
             systems.Add(new CameraSystem());
             systems.Add(new MoveSystem());
             systems.Add(new CameraViewSystem());

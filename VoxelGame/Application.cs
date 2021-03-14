@@ -15,7 +15,7 @@ namespace VoxelGame
     {
         public Application(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
         {
-            VSync = VSyncMode.On;
+            VSync = VSyncMode.Off;
             Input.KeyboardState = KeyboardState;
             Input.Mouse = MouseState;
             CursorGrabbed = true;

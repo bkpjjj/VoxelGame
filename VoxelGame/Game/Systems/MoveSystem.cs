@@ -20,11 +20,11 @@ namespace VoxelGame.Game.Systems
             return Vector3.TransformPosition(pos, t.RotationMatrix);
         }
 
-        float speedMul = 1;
+        float speedMul = 1f;
 
         public void Run()
         {
-            speedMul = 1;
+            speedMul = 1f;
 
             foreach (int i in _filter)
             {

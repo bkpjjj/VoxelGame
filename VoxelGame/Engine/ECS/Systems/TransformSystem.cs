@@ -3,6 +3,8 @@ using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using VoxelGame.Engine.ECS.Components;
 
 namespace VoxelGame.Engine.ECS.Systems
@@ -11,6 +13,9 @@ namespace VoxelGame.Engine.ECS.Systems
     {
         public EcsWorld _world = null;
         public EcsFilter<Transform> _filter = null;
+
+        public Queue<Thread> threads = new Queue<Thread>();
+        public int thread_count = 1;
 
         private void BuildRotation(ref Transform t)
         {
@@ -29,7 +34,6 @@ namespace VoxelGame.Engine.ECS.Systems
             foreach (var i in _filter)
             {
                 ref Transform c = ref _filter.Get1(i);
-
                 BuildRotation(ref c);
                 BuildModel(ref c);
             }
